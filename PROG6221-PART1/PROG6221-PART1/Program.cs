@@ -8,9 +8,42 @@ namespace CybersecurityAiChatBot
     class Program
     {
 
-
         static void Main(string[] args)
         {
+            // Dictionary to store cybersecurity topics and their definitions
+var interests = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
+{
+    { "phishing", "Phishing is when attackers trick users into revealing sensitive info by pretending to be a trustworthy entity."},
+    { "password safety", "Password safety means using unique, complex passwords and never sharing them." },
+    { "safe browsing", "Safe browsing means using secure websites (HTTPS), avoiding suspicious links, and updating your browser." },
+    { "online safety", "Online safety includes protecting your personal data, avoiding scams, and using secure connections." },
+    { "strong passwords", "A strong password includes upper/lowercase letters, numbers, symbols, and is 12+ characters long." },
+    { "cybersecurity awareness", "Cybersecurity awareness is knowing how to detect and avoid online threats like phishing and malware." }
+};
+
+// List of tips for phishing prevention
+var phishingTips = new List<string>
+{
+    "Never click suspicious links. Hover over them to preview the URL first.",
+    "Verify email sender addresses. Fake ones often have odd spellings or domains.",
+    "Watch for grammar and spelling errors in emails. Real companies rarely make such mistakes.",
+    "Don't act on urgent scare tactics like 'Account closing in 24 hours!'—verify first.",
+    "Avoid downloading unknown attachments. They might carry malware or ransomware.",
+    "Look for HTTPS and the padlock icon before entering sensitive info online."
+};
+
+// List of tips for password security
+var passwordTips = new List<string>
+{
+    "Use a password manager to create and store strong passwords securely.",
+    "Enable 2FA (two-factor authentication) for extra protection.",
+    "Avoid reusing passwords across different websites or apps.",
+    "Change passwords regularly, especially after a breach.",
+    "Pick security question answers that are not publicly guessable."
+};
+
+// List to track user's interests for personalized responses
+var userInterests = new List<string>();
 
             DisplayImage();
             PLayVoiceGreeting();
@@ -28,12 +61,11 @@ namespace CybersecurityAiChatBot
             {
 
                 Print("\nWelcome " + userName + "!");
+                 UserInteraction(userName, interests, userInterests, phishingTips, passwordTips).Wait();
+
             }
 
-            UserInteraction(userName);
-
-
-
+    
 
             static void PLayVoiceGreeting()
             {
@@ -123,21 +155,8 @@ namespace CybersecurityAiChatBot
                         Print("You can ask me about anything related to cybersecurity");
 
                     }
-                    else if (query.Equals("what is password phishing") || query.Contains("Phishing") || query.Contains("password phishing") || query.Contains("phishing") || query.Equals("could you explain passowrd phishing"))
-                    {
-                        Print("Password phishing is the process whereby individuals fake their identities in order to steal a victims password");
-                    }
-
-                    else if (query.Equals("How can I ensure my password's safe?") || query.Contains("password") || query.Contains("password safety"))
-                    {
-                        Print("You can ensure your password is safe by using a strong password that includes a combination of letters, numbers, and special characters. You should also avoid using the same password for multiple accounts and enable two-factor authentication whenever possible.");
-
-                    }
-                    else if (query.Equals("what is safe browsing?") || query.Contains("Browsing") || query.Contains("browsing") || query.Contains("safe browsing"))
-                    {
-                        Print("Safe browsing is the process of using a trusted and well secured browser for any research");
-
-                    }
+                    
+                   
                     else
                     {
                         Print("I'm sorry I don't have an answer to that question. Could you please rephrase");
