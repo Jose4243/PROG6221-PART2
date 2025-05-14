@@ -101,9 +101,9 @@ var userInterests = new List<string>();
 
 
 
-            static async Task UserInteraction(string userName)
-            {
+            static async Task UserInteraction(string userName, Dictionary<string, string> interests, List<string> userInterests, List<string> phishingTips, List<string> passwordTips)
 
+            {
 
                 string query;
                 while (true)
@@ -127,17 +127,118 @@ var userInterests = new List<string>();
                         Print("\nThank you for chatting " + userName + " stay safe online!");
                         break;
                     }
+                    if (query.ToLower().Contains("thank you") || query.ToLower().Contains("thanks"))
+                      {
+                          Print("\nYou're welcome! I'm here to help.");
+                          continue;
+                      }
+
+             if (query.ToLower().Contains("worried") || query.ToLower().Contains("worries"))
+        {
+            bool handled = false;
+            foreach (var topic in interests.Keys)
+            {
+                if (query.ToLower().Contains(topic.ToLower()))
+                {
+                    Print($"\nIt's completely understandable to feel worried about {topic}. Would you like to know more about it?");
+                    Console.ForegroundColor = ConsoleColor.White;
+                    string response = Console.ReadLine();
+                    if (response.ToLower().Contains("yes"))
+                    {
+                        Print(interests[topic]);
+                    }
                     else
                     {
-                        StartQuery(query, userName);
+                        Print("Okay! Let me know if you have any other questions.");
                     }
-
-
-
+                    handled = true;
+                    break;
                 }
+            }
+            if (handled) continue;
+        }
 
-                static void StartQuery(string query, string userName)
+        // Handle expressions of frustration
+        else if (query.ToLower().Contains("tired of") || query.ToLower().Contains("frustrates") || query.ToLower().Contains("frustrated"))
+        {
+            bool handled = false;
+            foreach (var topic in interests.Keys)
+            {
+                if (query.ToLower().Contains(topic.ToLower()))
                 {
+                    Print($"\nI understand that {topic} can be frustrating. Would you like to know more about it?");
+                    Console.ForegroundColor = ConsoleColor.White;
+                    string response = Console.ReadLine();
+                    if (response.ToLower().Contains("yes"))
+                    {
+                        Print(interests[topic]);
+                    }
+                    else
+                    {
+                        Print("Okay! Let me know if you have any other questions.");
+                    }
+                    handled = true;
+                    break;
+                }
+            }
+            if (handled) continue;
+        }
+
+        // Handle expressions of curiosity
+        else if(query.ToLower().Contains("questioning")|| query.ToLower().Contains("wondering") || query.ToLower().Contains("enthusiastic") || query.ToLower().Contains("learn more about") || query.ToLower().Contains("curious"))
+        {
+            bool handled = false;
+            foreach (var topic in interests.Keys)
+            {
+                if (query.ToLower().Contains(topic.ToLower()))
+                {
+                    Print($"\nIt's great to be curious about {topic}. Would you like to know more about it?");
+                    Console.ForegroundColor = ConsoleColor.White;
+                    string response = Console.ReadLine();
+                    if (response.ToLower().Contains("yes"))
+                    {
+                        Print(interests[topic]);
+                    }
+                    else
+                    {
+                        Print("Okay! Let me know if you have any other questions.");
+                    }
+                    handled = true;
+                    break;
+                }
+            }
+            if (handled) continue;
+        }
+
+        // Handle expressions of interest in topics
+        if (query.ToLower().Contains("i am interested in") || query.ToLower().Contains("i'm interested in") || query.ToLower().Contains("im interested in") || query.ToLower().Contains("i'm interested in"))
+        {
+            bool interestHandled = false;
+            foreach (var topic in interests.Keys)
+            {
+                if (query.ToLower().Contains(topic.ToLower()))
+                {
+                    if (!userInterests.Contains(topic))
+                    {
+                        userInterests.Add(topic);
+                        Print($"\nGreat! I'll remember that you're interested in {topic}.");
+                    }
+                    interestHandled = true;
+                    break;
+                }
+            }
+            if (interestHandled) continue;
+        }
+
+        // Process general queries
+        StartQuery(query, userName, interests, userInterests, phishingTips, passwordTips);
+            }
+        }
+                
+ 
+                static void StartQuery(string query, string userName, Dictionary<string, string> interests, List<string> userInterests, List<string> phishingTips, List<string> passwordTips)
+
+            {
 
 
                     if (query.Equals("How are you") || query.Equals("how are you") || query.Contains("feelings") || query.Contains("Feelings") || query.Equals("How are you?") || query.Equals("how are you?"))
