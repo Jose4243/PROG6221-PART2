@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "bTKMV3OZ1Gg=",
+  "success": true,
+  "projectFilePath": "C:\\Users\\contr\\source\\repos\\PROG6221-PART1\\PROG6221-PART1\\PROG6221-PART1.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\contr\\.nuget\\packages\\system.windows.extensions\\8.0.0\\system.windows.extensions.8.0.0.nupkg.sha512"
+  ],
+  "logs": []
+}
